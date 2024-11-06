@@ -4,21 +4,34 @@ import { ICartItem } from "../types";
 interface ItemProps {
   item: ICartItem;
 }
+const styleObj = {
+  backgroundColor: "darkblue",
+  color: "white",
+  padding: "5px",
+  margin: "5px",
+};
+
 export const Item = ({ item }: ItemProps) => {
   const [quantity, setQuantity] = useState<number>(0);
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (e.currentTarget.textContent === "+")
+      setQuantity((prev) => Math.max(prev + 1));
+    else if (e.currentTarget.textContent === "-")
+      setQuantity((prev) => Math.max(prev - 1));
+  };
+
   return (
-    <div
-      style={{
-        backgroundColor: "darkblue",
-        color: "white",
-        padding: "5px",
-        margin: "5px",
-      }}
-    >
+    <div style={styleObj}>
       <h2>{item.name}</h2>
-      <button>+</button>
-      <button>-</button>
-      <span>Quantity: {quantity}</span>
+      <button onClick={handleClick}>+</button>
+      <button onClick={handleClick}>-</button>
+      <div>
+        How many would you like to add to your cart?:{" "}
+        <span style={{ fontWeight: "bold", fontSize: "20px" }}>
+          {quantity < 0 ? 0 : quantity}
+        </span>
+      </div>
       <p>{item.price} NIS</p>
       <button>Add to cart</button>
     </div>
