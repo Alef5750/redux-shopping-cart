@@ -27,7 +27,7 @@ export const CartSlice = createSlice({
     ) => {
       const item = state.items.find((item) => item.id === action.payload.id);
       if (item) {
-        item.quantity = action.payload.quantity;
+        item.quantity += action.payload.quantity;
       }
 
       state.total = state.items.reduce(
