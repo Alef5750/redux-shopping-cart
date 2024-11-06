@@ -15,10 +15,8 @@ export const Item = ({ item }: ItemProps) => {
   const [quantity, setQuantity] = useState<number>(0);
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (e.currentTarget.textContent === "+")
-      setQuantity((prev) => Math.max(prev + 1));
-    else if (e.currentTarget.textContent === "-")
-      setQuantity((prev) => Math.max(prev - 1));
+    const change = e.currentTarget.textContent === "+" ? 1 : -1;
+    setQuantity((prev) => Math.max(prev + change, 0));
   };
 
   return (
