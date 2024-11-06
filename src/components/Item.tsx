@@ -26,9 +26,7 @@ export const Item = ({ item }: ItemProps) => {
       <button onClick={handleClick}>-</button>
       <div>
         How many would you like to add to your cart?:{" "}
-        <span style={{ fontWeight: "bold", fontSize: "20px" }}>
-          {quantity < 0 ? 0 : quantity}
-        </span>
+        <span style={{ fontWeight: "bold", fontSize: "20px" }}>{quantity}</span>
       </div>
       <p>{item.price} NIS</p>
       <button>Add to cart</button>
