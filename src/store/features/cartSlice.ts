@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { ICartItem } from "../../types";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { IAddItemToCartPayload, ICartItem } from "../../types";
 
 const initialItems: ICartItem[] = [
   { id: 1, name: "Baseball Cap", price: 35, quantity: 0 },
@@ -20,8 +20,23 @@ const initialState: CartState = {
 export const CartSlice = createSlice({
   name: "cart",
   initialState,
-  reducers: {},
+  reducers: {
+    updateItemQuantity: (
+      state,
+      action: PayloadAction<IAddItemToCartPayload>
+    ) => {
+      const item = state.items.find((item) => item.id === action.payload.id);
+      if (item) {
+        item.quantity = action.payload.quantity;
+      }
+
+      state.total = state.items.reduce(
+        (sum, item) => sum + item.price * item.quantity,
+        0
+      );
+    },
+  },
 });
 
-// export const {} = CartSlice.actions; // for the components
+export const { updateItemQuantity } = CartSlice.actions; // for the components
 export default CartSlice.reducer; // for the store

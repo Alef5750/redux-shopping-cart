@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { ICartItem } from "../types";
+import { IAddItemToCartPayload, ICartItem } from "../types";
+import { useDispatch } from "react-redux";
+import { updateItemQuantity } from "../store/features/cartSlice";
 
 interface ItemProps {
   item: ICartItem;
@@ -18,6 +20,11 @@ export const Item = ({ item }: ItemProps) => {
     const change = e.currentTarget.textContent === "+" ? 1 : -1;
     setQuantity((prev) => Math.max(prev + change, 0));
   };
+  const dispatch = useDispatch();
+
+  const handleAddToCart = (itemToAdd: IAddItemToCartPayload) => {
+    dispatch(updateItemQuantity(itemToAdd));
+  };
 
   return (
     <div style={styleObj}>
@@ -29,7 +36,9 @@ export const Item = ({ item }: ItemProps) => {
         <span style={{ fontWeight: "bold", fontSize: "20px" }}>{quantity}</span>
       </div>
       <p>{item.price} NIS</p>
-      <button>Add to cart</button>
+      <button onClick={() => handleAddToCart({ id: item.id, quantity })}>
+        Add to cart
+      </button>
     </div>
   );
 };

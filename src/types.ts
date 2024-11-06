@@ -4,3 +4,8 @@ export interface ICartItem {
   price: number;
   quantity: number;
 }
+
+export interface IAddItemToCartPayload {
+  id: number;
+  quantity: number;
+}
